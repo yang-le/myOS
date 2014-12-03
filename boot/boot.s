@@ -26,32 +26,25 @@ movw $2, %cx
 movw $0, %dx
 int $0x13
 
-# init disp
-movw $VIDEO, %ax
-movw %ax, %es
-xorw %di, %di
+# Force %es = %ds
+movw	%ds, %ax
+movw	%ax, %es
+cld
 
-#movb %ds:newWorld, %al
-#call DispAL
-
-movb $'c', %es:(%di)
-addw $2, %di
+# We will have entered with %cs = %ds+0x20, normalize %cs so
+# it is on par with the other segments.
+pushw	%ds
+pushw	$6f
+lretw
+6:
 
 #jmp newWorld
-call _my_os
+calll _my_os
 
-movb $'b', %es:(%di)
-addw $2, %di
-
-call _foo_ret
-
-movb $'a', %es:(%di)
-addw $2, %di
-
-hlt:
-jmp hlt
+die:
+hlt
+jmp die
 
 .org 510
 bootflag:
 .word 0xAA55
-newWorld:
