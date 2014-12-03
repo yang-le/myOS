@@ -3,7 +3,7 @@
 void my_os(void)
 {
 	char_init();
-	putc('o');
-	putc('s');
+	char str[] = "hello world!";
+	puts(str);
 	for(;;);
 }
