@@ -9,14 +9,20 @@ myOS.img : myOS.bin
 myOS.bin : myOS
 	objcopy -O binary -R .eh_fram -R .rdata -S $^ $@
 
-myOS :
-	cd boot && make && cd ..
-	cd kernel && make && cd ..
-	ld -o $@ -nostdlib -T NUL boot/boot kernel/kernel
+myOS : FORCE
+	cd boot && make
+	cd kernel && make
+	cd char && make
+	ld -o $@ -nostdlib -T NUL boot/boot \
+		-L./kernel -lkernel \
+		-L./char -lchar
+
+FORCE:
 
 clean:
-	cd boot && make clean && cd ..
-	cd kernel && make clean && cd ..
+	cd boot && make clean
+	cd kernel && make clean
+	cd char && make clean
 	-rm -f myOS
 	-rm -f myOS.bin
 	-rm -f myOS.img

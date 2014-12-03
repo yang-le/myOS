@@ -1,5 +1,4 @@
 BOOTSEG		= 0x07C0		/* original address of boot-sector */
-VIDEO		= 0xB800
 
 .code16
 .global bootsect_start
