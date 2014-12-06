@@ -18,6 +18,8 @@ asm(
 
 void htoa(unsigned char hex)
 {
+	if (hex > 0xF) return;
+	
 	if (hex < 0xA)
 		hex += '0';
 	else
@@ -26,7 +28,7 @@ void htoa(unsigned char hex)
 	putc(hex);
 }
 
-void dumpbyte(const char b)
+void dumpbyte(unsigned char b)
 {
 	htoa((b >> 4) & 0xf);
 	htoa((b >> 0) & 0xf);
