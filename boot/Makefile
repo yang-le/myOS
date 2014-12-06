@@ -4,10 +4,10 @@ include $(TOPDIR)/common.mk
 all : boot
 
 boot : boot.s FORCE
-	$(Q)echo "[BOOT] create bootsector $@"
-	$(Q)sh fixsize.sh boot.s | as -o $@
+	$(Q)$(ECHO) "[BOOT] create bootsector $@"
+	$(Q)sh fixsize.sh boot.s | $(AS) -o $@
 
 FORCE:
 	
 clean:
-	$(Q)-rm -f boot
+	$(Q)$(RM) -f boot

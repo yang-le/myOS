@@ -6,17 +6,13 @@ KERNEL = libkernel.a
 all : $(KERNEL)
 
 $(KERNEL) : main.o
-	$(Q)echo "[AR] $@"
-	$(Q)ar cr $@ $^
+	$(Q)$(ECHO) "[AR] $@"
+	$(Q)$(AR) cr $@ $^
 
-main.o : code16gcc.s main.c
-	$(Q)echo "[CC] $@"
-	$(Q)cc -o $@ -I../char -I../bios -m32 -fno-builtin -nostdinc -c -Wa,$^
-
-code16gcc.s:
-	$(Q)echo .code16gcc > $@
+main.o : main.c
+	$(Q)$(ECHO) "[CC] $@"
+	$(Q)$(CC) -o $@ -I../char -I../bios -m32 -fno-builtin -nostdinc $(CODE16GCC) -c $^
 
 clean:
-	$(Q)-rm -f $(KERNEL)
-	$(Q)-rm -f main.o
-	$(Q)-rm -f code16gcc.s
+	$(Q)$(RM) -f $(KERNEL)
+	$(Q)$(RM) -f main.o

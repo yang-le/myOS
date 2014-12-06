@@ -6,17 +6,13 @@ CHAR = libchar.a
 all : $(CHAR)
 
 $(CHAR) : char.o
-	$(Q)echo "[AR] $@"
-	$(Q)ar cr $@ $^
+	$(Q)$(ECHO) "[AR] $@"
+	$(Q)$(AR) cr $@ $^
 
-char.o : code16gcc.s char.c
-	$(Q)echo "[CC] $@"
-	$(Q)cc -o $@ -m32 -fno-builtin -nostdinc -c -Wa,$^
-
-code16gcc.s:
-	$(Q)echo .code16gcc > $@
+char.o : char.c
+	$(Q)$(ECHO) "[CC] $@"
+	$(Q)$(CC) -o $@ -m32 -fno-builtin -nostdinc $(CODE16GCC) -c $^
 
 clean:
-	$(Q)-rm -f $(CHAR)
-	$(Q)-rm -f char.o
-	$(Q)-rm -f code16gcc.s
+	$(Q)$(RM) -f $(CHAR)
+	$(Q)$(RM) -f char.o

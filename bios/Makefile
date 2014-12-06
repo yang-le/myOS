@@ -6,22 +6,18 @@ BIOS = libbios.a
 all : $(BIOS)
 
 $(BIOS) : 10.o 15.o
-	$(Q)echo "[AR] $@"
-	$(Q)ar cr $@ $^
+	$(Q)$(ECHO) "[AR] $@"
+	$(Q)$(AR) cr $@ $^
 
-10.o : code16gcc.s 10.c
-	$(Q)echo "[CC] $@"
-	$(Q)cc -o $@ -m32 -fno-builtin -nostdinc -c -Wa,$^
+10.o : 10.c
+	$(Q)$(ECHO) "[CC] $@"
+	$(Q)$(CC) -o $@ -m32 -fno-builtin -nostdinc $(CODE16GCC) -c $^
 
-15.o : code16gcc.s 15.c
-	$(Q)echo "[CC] $@"
-	$(Q)cc -o $@ -m32 -fno-builtin -nostdinc -c -Wa,$^
-
-code16gcc.s:
-	$(Q)echo .code16gcc > $@
+15.o : 15.c
+	$(Q)$(ECHO) "[CC] $@"
+	$(Q)$(CC) -o $@ -m32 -fno-builtin -nostdinc $(CODE16GCC) -c $^
 
 clean:
-	$(Q)-rm -f $(BIOS)
-	$(Q)-rm -f 10.o
-	$(Q)-rm -f 15.o
-	$(Q)-rm -f code16gcc.s
+	$(Q)$(RM) -f $(BIOS)
+	$(Q)$(RM) -f 10.o
+	$(Q)$(RM) -f 15.o
