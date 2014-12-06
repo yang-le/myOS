@@ -1,17 +1,22 @@
+TOPDIR = ..
+include $(TOPDIR)/common.mk
+
 CHAR = libchar.a
 
 all : $(CHAR)
 
 $(CHAR) : char.o
-	ar cr $@ $^
+	$(Q)echo "[AR] $@"
+	$(Q)ar cr $@ $^
 
 char.o : code16gcc.s char.c
-	cc -o $@ -m32 -fno-builtin -nostdinc -c -Wa,$^
+	$(Q)echo "[CC] $@"
+	$(Q)cc -o $@ -m32 -fno-builtin -nostdinc -c -Wa,$^
 
 code16gcc.s:
-	echo .code16gcc > $@
+	$(Q)echo .code16gcc > $@
 
 clean:
-	-rm -f $(CHAR)
-	-rm -f char.o
-	-rm -f code16gcc.s
+	$(Q)-rm -f $(CHAR)
+	$(Q)-rm -f char.o
+	$(Q)-rm -f code16gcc.s

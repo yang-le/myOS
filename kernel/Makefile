@@ -1,17 +1,22 @@
+TOPDIR = ..
+include $(TOPDIR)/common.mk
+
 KERNEL = libkernel.a
 
 all : $(KERNEL)
 
 $(KERNEL) : main.o
-	ar cr $@ $^
+	$(Q)echo "[AR] $@"
+	$(Q)ar cr $@ $^
 
 main.o : code16gcc.s main.c
-	cc -o $@ -I../char -m32 -fno-builtin -nostdinc -c -Wa,$^
+	$(Q)echo "[CC] $@"
+	$(Q)cc -o $@ -I../char -I../bios -m32 -fno-builtin -nostdinc -c -Wa,$^
 
 code16gcc.s:
-	echo .code16gcc > $@
+	$(Q)echo .code16gcc > $@
 
 clean:
-	-rm -f $(KERNEL)
-	-rm -f main.o
-	-rm -f code16gcc.s
+	$(Q)-rm -f $(KERNEL)
+	$(Q)-rm -f main.o
+	$(Q)-rm -f code16gcc.s

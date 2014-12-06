@@ -17,9 +17,11 @@ xorw	%sp, %sp
 sti
 cld
 
-# read 2nd sector
+# read following sector(s)
 movw $0x200, %bx
-movb $1, %al
+# SED FIXME START
+movb $0, %al
+# SED FIXME END
 movb $2, %ah
 movw $2, %cx
 movw $0, %dx
