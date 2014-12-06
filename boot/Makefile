@@ -1,5 +1,5 @@
 TOPDIR = ..
-include $(TOPDIR)/common.mk
+include $(TOPDIR)/mk/common.mk
 
 all : boot
 

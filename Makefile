@@ -1,5 +1,5 @@
 TOPDIR = .
-include $(TOPDIR)/common.mk
+include $(TOPDIR)/mk/common.mk
 
 TARGET = myOS
 
@@ -8,7 +8,7 @@ all : $(TARGET).bin
 img : $(TARGET).img
 
 $(TARGET).img : $(TARGET).bin
-	$(Q)mk_img.sh $@ $^
+	$(Q)mk/mk_img.sh $@ $^
 
 $(TARGET).bin : $(TARGET)
 	$(Q)$(OBJCP) -O binary -R .eh_fram -R .rdata -S $^ $@
