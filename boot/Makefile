@@ -10,4 +10,4 @@ boot : boot.s FORCE
 FORCE:
 	
 clean:
-	$(Q)$(RM) -f boot
+	$(Q)$(RM) boot

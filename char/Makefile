@@ -14,5 +14,5 @@ char.o : char.c
 	$(Q)$(CC) -o $@ $(CFLAGS) $(CODE16GCC) -c $^
 
 clean:
-	$(Q)$(RM) -f $(CHAR)
-	$(Q)$(RM) -f char.o
+	$(Q)$(RM) $(CHAR)
+	$(Q)$(RM) char.o

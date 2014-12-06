@@ -18,7 +18,7 @@ $(TARGET).bin : $(TARGET)
 	$(Q)$(MAKE) -C boot
 	$(Q)$(ECHO) "[LINK] 2nd stage link..."
 	$(Q)$(MAKE) link
-	$(Q)$(RM) -f bin.size
+	$(Q)$(RM) bin.size
 	$(Q)$(OBJCP) -O binary -R .eh_fram -R .rdata -S $^ $@
 
 $(TARGET) :
@@ -42,6 +42,6 @@ clean:
 	$(Q)$(MAKE) -C kernel clean
 	$(Q)$(MAKE) -C char clean
 	$(Q)$(MAKE) -C bios clean
-	$(Q)$(RM) -f $(TARGET)
-	$(Q)$(RM) -f $(TARGET).bin
-	$(Q)$(RM) -f $(TARGET).img
+	$(Q)$(RM) $(TARGET)
+	$(Q)$(RM) $(TARGET).bin
+	$(Q)$(RM) $(TARGET).img

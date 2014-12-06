@@ -18,6 +18,6 @@ $(BIOS) : 10.o 15.o
 	$(Q)$(CC) -o $@ $(CFLAGS) $(CODE16GCC) -c $^
 
 clean:
-	$(Q)$(RM) -f $(BIOS)
-	$(Q)$(RM) -f 10.o
-	$(Q)$(RM) -f 15.o
+	$(Q)$(RM) $(BIOS)
+	$(Q)$(RM) 10.o
+	$(Q)$(RM) 15.o

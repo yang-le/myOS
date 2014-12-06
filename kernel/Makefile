@@ -14,5 +14,5 @@ main.o : main.c
 	$(Q)$(CC) -o $@ $(CFLAGS) $(CODE16GCC) -c $^
 
 clean:
-	$(Q)$(RM) -f $(KERNEL)
-	$(Q)$(RM) -f main.o
+	$(Q)$(RM) $(KERNEL)
+	$(Q)$(RM) main.o

@@ -16,7 +16,7 @@ CAT = cat
 DD = dd
 ECHO = echo
 SED = sed
-RM = rm
+RM = rm -f
 WC = wc
 
 CFLAGS = -m32 -fno-builtin -nostdinc -I$(TOPDIR)/char -I$(TOPDIR)/bios
