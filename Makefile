@@ -1,14 +1,16 @@
 TOPDIR = .
 include $(TOPDIR)/common.mk
 
-all : myOS.bin
+TARGET = myOS
 
-img : myOS.img
+all : $(TARGET).bin
 
-myOS.img : myOS.bin
+img : $(TARGET).img
+
+$(TARGET).img : $(TARGET).bin
 	$(Q)mk_img.sh $@ $^
 
-myOS.bin : myOS
+$(TARGET).bin : $(TARGET)
 	$(Q)$(OBJCP) -O binary -R .eh_fram -R .rdata -S $^ $@
 	$(Q)$(CAT) $@ | wc -c > bin.size
 	$(Q)$(ECHO) "[SIZE] binary size = `$(CAT) bin.size`"
@@ -16,10 +18,10 @@ myOS.bin : myOS
 	$(Q)$(MAKE) -C boot
 	$(Q)$(ECHO) "[LINK] 2nd stage link..."
 	$(Q)$(MAKE) link
-	$(Q)-$(RM) -f bin.size
+	$(Q)$(RM) -f bin.size
 	$(Q)$(OBJCP) -O binary -R .eh_fram -R .rdata -S $^ $@
 
-myOS :
+$(TARGET) :
 	$(Q)$(MAKE) -C boot
 	$(Q)$(MAKE) -C kernel
 	$(Q)$(MAKE) -C char
@@ -28,7 +30,7 @@ myOS :
 	$(Q)$(MAKE) link
 
 link : FORCE
-	$(Q)$(LD) -o myOS -nostdlib -T NUL boot/boot \
+	$(Q)$(LD) -o $(TARGET) -nostdlib -T NUL boot/boot \
 		-L./kernel -lkernel \
 		-L./char -lchar \
 		-L./bios -lbios
@@ -40,6 +42,6 @@ clean:
 	$(Q)$(MAKE) -C kernel clean
 	$(Q)$(MAKE) -C char clean
 	$(Q)$(MAKE) -C bios clean
-	$(Q)$(RM) -f myOS
-	$(Q)$(RM) -f myOS.bin
-	$(Q)$(RM) -f myOS.img
+	$(Q)$(RM) -f $(TARGET)
+	$(Q)$(RM) -f $(TARGET).bin
+	$(Q)$(RM) -f $(TARGET).img

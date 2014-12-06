@@ -5,7 +5,7 @@ all : boot
 
 boot : boot.s FORCE
 	$(Q)$(ECHO) "[BOOT] create bootsector $@"
-	$(Q)sh fixsize.sh boot.s | $(AS) -o $@
+	$(Q)fixsize.sh boot.s | $(AS) -o $@
 
 FORCE:
 	
