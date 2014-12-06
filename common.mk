@@ -17,5 +17,6 @@ DD = dd
 ECHO = echo
 SED = sed
 RM = rm
+WC = wc
 
 CODE16GCC = -Wa,$(TOPDIR)/code16gcc.s

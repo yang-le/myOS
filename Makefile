@@ -12,7 +12,7 @@ $(TARGET).img : $(TARGET).bin
 
 $(TARGET).bin : $(TARGET)
 	$(Q)$(OBJCP) -O binary -R .eh_fram -R .rdata -S $^ $@
-	$(Q)$(CAT) $@ | wc -c > bin.size
+	$(Q)$(CAT) $@ | $(WC) -c > bin.size
 	$(Q)$(ECHO) "[SIZE] binary size = `$(CAT) bin.size`"
 	$(Q)$(ECHO) "[SIZE] fix boot code..."
 	$(Q)$(MAKE) -C boot
