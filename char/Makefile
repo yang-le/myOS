@@ -11,7 +11,7 @@ $(CHAR) : char.o
 
 char.o : char.c
 	$(Q)$(ECHO) "[CC] $@"
-	$(Q)$(CC) -o $@ -m32 -fno-builtin -nostdinc $(CODE16GCC) -c $^
+	$(Q)$(CC) -o $@ $(CFLAGS) $(CODE16GCC) -c $^
 
 clean:
 	$(Q)$(RM) -f $(CHAR)

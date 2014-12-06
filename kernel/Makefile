@@ -11,7 +11,7 @@ $(KERNEL) : main.o
 
 main.o : main.c
 	$(Q)$(ECHO) "[CC] $@"
-	$(Q)$(CC) -o $@ -I../char -I../bios -m32 -fno-builtin -nostdinc $(CODE16GCC) -c $^
+	$(Q)$(CC) -o $@ $(CFLAGS) $(CODE16GCC) -c $^
 
 clean:
 	$(Q)$(RM) -f $(KERNEL)

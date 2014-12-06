@@ -19,4 +19,7 @@ SED = sed
 RM = rm
 WC = wc
 
+CFLAGS = -m32 -fno-builtin -nostdinc -I$(TOPDIR)/char -I$(TOPDIR)/bios
+LFLAGS = -nostdlib -T NUL
+
 CODE16GCC = -Wa,$(TOPDIR)/code16gcc.s

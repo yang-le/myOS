@@ -30,7 +30,7 @@ $(TARGET) :
 	$(Q)$(MAKE) link
 
 link : FORCE
-	$(Q)$(LD) -o $(TARGET) -nostdlib -T NUL boot/boot \
+	$(Q)$(LD) -o $(TARGET) $(LFLAGS) boot/boot \
 		-L./kernel -lkernel \
 		-L./char -lchar \
 		-L./bios -lbios
