@@ -1,8 +1,8 @@
 #ifndef __BIOS_H__
 #define __BIOS_H__
 
-#include <10.h>
-#include <15.h>
+#include <video.h>
+#include <misc.h>
 
 enum bios_calls {
 	bc_video_service = 0x10,

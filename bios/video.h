@@ -1,5 +1,5 @@
-#ifndef __10_H__
-#define __10_H__
+#ifndef __VIDEO_H__
+#define __VIDEO_H__
 
 #include <bios.h>
 
@@ -33,6 +33,8 @@ enum video_service_calls {
 //   1 = invisible
 //   2 = erratic
 //   3 = slow
-void set_cursor_shape(unsigned char start, unsigned char end, unsigned char options);
+inline void set_cursor_shape(unsigned char start, unsigned char end, unsigned char options);
+
+inline void tele_char(unsigned char c, unsigned char page, unsigned char color);
 
 #endif
