@@ -1,8 +1,9 @@
+#include <misc.h>
 
-void delay(unsigned long ms)
+void delay(uint32 ms)
 {
-unsigned short dx = (ms * 1000) & 0xFFFF;
-unsigned short cx = ((ms * 1000) >> 16) & 0xFFFF;
+uint16 dx = (ms * 1000) & 0xFFFF;
+uint16 cx = ((ms * 1000) >> 16) & 0xFFFF;
 
 asm(
 	"mov $0x86, %%ah\n"

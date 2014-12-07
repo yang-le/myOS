@@ -1,6 +1,10 @@
 #ifndef __BIOS_H__
 #define __BIOS_H__
 
+typedef unsigned char uint8;
+typedef unsigned short uint16;
+typedef unsigned int uint32;
+
 #include <video.h>
 #include <misc.h>
 

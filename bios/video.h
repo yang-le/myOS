@@ -26,6 +26,33 @@ enum video_service_calls {
 	vs_tele_string
 };
 
+union disp_attrib {
+#define COLOR_BLACK (0)
+#define COLOR_RED 	(1 << 2)
+#define COLOR_GREEN (1 << 1)
+#define COLOR_BLUE 	(1 << 0)
+
+#define COLOR_YELLOW 	(COLOR_RED | COLOR_GREEN)
+#define COLOR_CYAN 		(COLOR_GREEN | COLOR_BLUE)
+#define COLOR_MAGENTA 	(COLOR_RED | COLOR_BLUE)
+#define COLOR_WHITE 	(COLOR_RED | COLOR_GREEN | COLOR_BLUE)
+
+	struct {
+		uint8 fcolor : 3;
+		uint8 bright : 1;
+		uint8 bcolor : 3;
+		uint8 blink  : 1;
+	};
+	uint8 all;
+};
+
+struct cursor_info {
+	uint8 start;
+	uint8 end;
+	uint8 row;
+	uint8 col;
+};
+
 // start = 0 ~ 15
 // end = 0 ~ 15
 // options = 0 ~ 3
@@ -33,8 +60,14 @@ enum video_service_calls {
 //   1 = invisible
 //   2 = erratic
 //   3 = slow
-inline void set_cursor_shape(unsigned char start, unsigned char end, unsigned char options);
+inline void set_cursor_shape(uint8 start, uint8 end, uint8 options);
 
-inline void tele_char(unsigned char c, unsigned char page, unsigned char color);
+inline void get_cursor_info(uint8 page, struct cursor_info* info);
+
+inline void tele_char(uint8 c, uint8 page, uint8 color);
+
+#define MODE_UPDATE_CURSOR 1
+#define MODE_ATTRIB_IN_STRING 2
+inline void tele_string(const uint8* s, uint16 size, uint8 row, uint8 col, uint8 page, uint8 mode, union disp_attrib attrib);
 
 #endif

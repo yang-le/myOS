@@ -3,6 +3,6 @@
 
 #include <bios.h>
 
-void delay(unsigned long ms);
+void delay(uint32 ms);
 
 #endif
