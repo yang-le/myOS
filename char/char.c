@@ -32,9 +32,21 @@ void dumptr(const void* p)
 	dumpbyte((val >> 0)	 & 0xff);
 }
 
-inline void puts(const char* s)
+unsigned int strlen(const char* s)
 {
+	unsigned int l = 0;
 	const char* p = s;
-	while(p && *p)
-		putc(*p++);
+	while(p && *p++) ++l;
+	return l;
+}
+
+void puts(const char* s)
+{
+	union disp_attrib attrib = {0};
+	attrib.fcolor = COLOR_WHITE;
+	
+	struct cursor_info info = {0};
+	get_cursor_info(0, &info);
+	
+	tele_string(s, strlen(s), info.row, info.col, 0, MODE_UPDATE_CURSOR, attrib);
 }
