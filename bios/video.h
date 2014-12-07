@@ -60,14 +60,14 @@ struct cursor_info {
 //   1 = invisible
 //   2 = erratic
 //   3 = slow
-inline void set_cursor_shape(uint8 start, uint8 end, uint8 options);
+void set_cursor_shape(uint8 start, uint8 end, uint8 options);
 
-inline void get_cursor_info(uint8 page, struct cursor_info* info);
+void get_cursor_info(uint8 page, struct cursor_info* info);
 
-inline void tele_char(uint8 c, uint8 page, uint8 color);
+void tele_char(uint8 c, uint8 page, uint8 color);
 
 #define MODE_UPDATE_CURSOR 1
 #define MODE_ATTRIB_IN_STRING 2
-inline void tele_string(const uint8* s, uint16 size, uint8 row, uint8 col, uint8 page, uint8 mode, union disp_attrib attrib);
+void tele_string(const uint8* s, uint16 size, uint8 row, uint8 col, uint8 page, uint8 mode, union disp_attrib attrib);
 
 #endif
