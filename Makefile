@@ -21,7 +21,7 @@ $(TARGET).bin : $(TARGET)
 	$(Q)$(RM) bin.size
 	$(Q)$(OBJCP) -O binary -R .eh_fram -R .rdata -S $^ $@
 
-$(TARGET) :
+$(TARGET) : FORCE
 	$(Q)$(MAKE) -C boot
 	$(Q)$(MAKE) -C kernel
 	$(Q)$(MAKE) -C char
