@@ -1,19 +1,8 @@
-inline void char_init(void)
-{
-asm(
-	"mov $0xb800, %ax\n"
-	"mov %ax, %es\n"
-	"xor %di, %di\n"
-);	
-}
+#include <bios.h>
 
 inline void putc(const char c)
 {
-asm(
-	"movb %0, %%es:(%%di)\n"
-	"add $2, %%di\n"
-	::"a"(c)
-);
+	tele_char(c, 0, 0);
 }
 
 void htoa(unsigned char hex)
@@ -43,7 +32,7 @@ void dumptr(const void* p)
 	dumpbyte((val >> 0)	 & 0xff);
 }
 
-void puts(const char* s)
+inline void puts(const char* s)
 {
 	const char* p = s;
 	while(p && *p)
