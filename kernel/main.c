@@ -31,8 +31,8 @@ void my_os(void)
 
 	for(;;){
 		delay(500);
-		set_cursor_shape(info.start, info.end, 0);
+		set_cursor_shape(info.start, info.end, SHAPE_NORMAL);
 		delay(500);
-		set_cursor_shape(info.start, info.end, 1);
+		set_cursor_shape(info.start, info.end, SHAPE_INVISIBLE);
 	}
 }

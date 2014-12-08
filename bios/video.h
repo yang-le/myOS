@@ -26,7 +26,6 @@ enum video_service_calls {
 	vs_tele_string
 };
 
-union disp_attrib {
 #define COLOR_BLACK (0)
 #define COLOR_RED 	(1 << 2)
 #define COLOR_GREEN (1 << 1)
@@ -37,6 +36,7 @@ union disp_attrib {
 #define COLOR_MAGENTA 	(COLOR_RED | COLOR_BLUE)
 #define COLOR_WHITE 	(COLOR_RED | COLOR_GREEN | COLOR_BLUE)
 
+union disp_attrib {
 	struct {
 		uint8 fcolor : 3;
 		uint8 bright : 1;
@@ -56,10 +56,10 @@ struct cursor_info {
 // start = 0 ~ 15
 // end = 0 ~ 15
 // options = 0 ~ 3
-//   0 = normal
-//   1 = invisible
-//   2 = erratic
-//   3 = slow
+#define SHAPE_NORMAL 	0
+#define SHAPE_INVISIBLE 1
+#define SHAPE_ERRATIC 	2
+#define SHAPE_SLOW 		3
 void set_cursor_shape(uint8 start, uint8 end, uint8 options);
 
 void get_cursor_info(uint8 page, struct cursor_info* info);
