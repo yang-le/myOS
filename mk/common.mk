@@ -20,6 +20,6 @@ RM = rm -f
 WC = wc
 
 CFLAGS = -m32 -fomit-frame-pointer -fno-builtin -nostdinc -I$(TOPDIR)/char -I$(TOPDIR)/bios
-LFLAGS = -nostdlib -T NUL
+LFLAGS = -nostdlib -Ttext 0
 
 CODE16GCC = -Wa,$(TOPDIR)/mk/code16gcc.s
