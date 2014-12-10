@@ -11,7 +11,7 @@ $(TARGET).img : $(TARGET).bin
 	$(Q)mk/mk_img.sh $@ $^
 
 $(TARGET).bin : $(TARGET)
-	$(Q)$(OBJCP) -O binary -R .eh_fram -R .rdata -S $^ $@
+	$(Q)$(OBJCP) $(OFLAGS) $^ $@
 	$(Q)$(CAT) $@ | $(WC) -c > bin.size
 	$(Q)$(ECHO) "[SIZE] binary size = `$(CAT) bin.size`"
 	$(Q)$(ECHO) "[SIZE] fix boot code..."
@@ -19,7 +19,7 @@ $(TARGET).bin : $(TARGET)
 	$(Q)$(ECHO) "[LINK] 2nd stage link..."
 	$(Q)$(MAKE) link
 	$(Q)$(RM) bin.size
-	$(Q)$(OBJCP) -O binary -R .eh_fram -R .rdata -S $^ $@
+	$(Q)$(OBJCP) $(OFLAGS) $^ $@
 
 $(TARGET) : FORCE
 	$(Q)$(MAKE) -C boot

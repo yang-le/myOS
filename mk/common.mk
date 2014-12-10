@@ -21,5 +21,6 @@ WC = wc
 
 CFLAGS = -m32 -fomit-frame-pointer -fno-builtin -nostdinc -I$(TOPDIR)/char -I$(TOPDIR)/bios
 LFLAGS = -nostdlib -Ttext 0
+OFLAGS = -O binary -R .eh_frame -R .eh_fram -R .comment -R .edata -R .idata -S
 
 CODE16GCC = -Wa,$(TOPDIR)/mk/code16gcc.s
