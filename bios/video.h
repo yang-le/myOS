@@ -53,6 +53,23 @@ struct cursor_info {
 	uint8 col;
 };
 
+struct __attribute__ ((gcc_struct, packed)) svga_info {
+	uint8 	signature[4];
+	uint16	vesa_ver;
+	uint32	oem;
+	uint32	capability;
+	uint32	support_vesa_oem_modes;
+	uint16	mem_size;
+	uint16	oem_ver;
+	uint32	vendor_name;
+	uint32	product_name;
+	uint32	product_rev;
+	uint16	vbe_af_ver;
+	uint32	support_accelerate_modes;
+	uint8	reserved[216];
+	uint8	oem_scratchpad[256];
+};
+
 // start = 0 ~ 15
 // end = 0 ~ 15
 // options = 0 ~ 3
@@ -68,6 +85,8 @@ void tele_char(uint8 c, uint8 page, uint8 color);
 
 #define MODE_UPDATE_CURSOR 1
 #define MODE_ATTRIB_IN_STRING 2
-void tele_string(const uint8* s, uint16 size, uint8 row, uint8 col, uint8 page, uint8 mode, union disp_attrib attrib);
+void tele_string(char* s, uint16 size, uint8 row, uint8 col, uint8 page, uint8 mode, union disp_attrib attrib);
+
+int get_svga_info(struct svga_info* info);
 
 #endif

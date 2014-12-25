@@ -2,6 +2,6 @@
 #define __CHAR_H__
 
 void putc(const char c);
-void puts(const char* s);
+void puts(char* s);
 
 #endif
