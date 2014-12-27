@@ -5,8 +5,15 @@ typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;
 
-#include <video.h>
-#include <misc.h>
+typedef uint8 bool;
+#define true 1
+#define false 0
+
+#define __PACKED__ __attribute__ ((gcc_struct, packed))
+
+#include "video.h"
+#include "vesa.h"
+#include "misc.h"
 
 enum bios_calls {
 	bc_video_service = 0x10,

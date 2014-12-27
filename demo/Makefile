@@ -1,28 +1,23 @@
 TOPDIR = ..
 include $(TOPDIR)/mk/common.mk
 
-BIOS = libbios.a
+DEMO = libdemo.a
 
-all : $(BIOS)
+all : $(DEMO)
 
-$(BIOS) : video.o vesa.o misc.o
+$(DEMO) : char.o vesa.o
 	$(Q)$(ECHO) "[AR] $@"
 	$(Q)$(AR) cr $@ $^
 
-video.o : video.c
+char.o : char.c
 	$(Q)$(ECHO) "[CC] $@"
 	$(Q)$(CC) -o $@ $(CFLAGS) $(CODE16GCC) -c $^
 
 vesa.o : vesa.c
 	$(Q)$(ECHO) "[CC] $@"
 	$(Q)$(CC) -o $@ $(CFLAGS) $(CODE16GCC) -c $^
-
-misc.o : misc.c
-	$(Q)$(ECHO) "[CC] $@"
-	$(Q)$(CC) -o $@ $(CFLAGS) $(CODE16GCC) -c $^
-
+	
 clean:
-	$(Q)$(RM) $(BIOS)
-	$(Q)$(RM) video.o
-	$(Q)$(RM) vesa.o	
-	$(Q)$(RM) misc.o
+	$(Q)$(RM) $(DEMO)
+	$(Q)$(RM) char.o
+	$(Q)$(RM) vesa.o

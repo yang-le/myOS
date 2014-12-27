@@ -24,6 +24,7 @@ $(TARGET).bin : $(TARGET)
 $(TARGET) : FORCE
 	$(Q)$(MAKE) -C boot
 	$(Q)$(MAKE) -C kernel
+	$(Q)$(MAKE) -C demo	
 	$(Q)$(MAKE) -C char
 	$(Q)$(MAKE) -C bios
 	$(Q)$(ECHO) "[LINK] 1st stage link..."
@@ -32,6 +33,7 @@ $(TARGET) : FORCE
 link : FORCE
 	$(Q)$(LD) -o $(TARGET) $(LFLAGS) boot/boot \
 		-L./kernel -lkernel \
+		-L./demo -ldemo \
 		-L./char -lchar \
 		-L./bios -lbios
 
@@ -40,6 +42,7 @@ FORCE:
 clean:
 	$(Q)$(MAKE) -C boot clean
 	$(Q)$(MAKE) -C kernel clean
+	$(Q)$(MAKE) -C demo clean	
 	$(Q)$(MAKE) -C char clean
 	$(Q)$(MAKE) -C bios clean
 	$(Q)$(RM) $(TARGET)

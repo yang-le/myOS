@@ -19,7 +19,9 @@ SED = sed
 RM = rm -f
 WC = wc
 
-CFLAGS = -m32 -fomit-frame-pointer -fno-builtin -nostdinc -I$(TOPDIR)/char -I$(TOPDIR)/bios
+INC_FLAG = -I$(TOPDIR) -I$(TOPDIR)/char -I$(TOPDIR)/bios
+
+CFLAGS = -m32 -fomit-frame-pointer -fno-builtin -nostdinc $(INC_FLAG)
 LFLAGS = -nostdlib -Ttext 0
 OFLAGS = -O binary -R .eh_frame -R .eh_fram -R .comment -R .edata -R .idata -S
 
