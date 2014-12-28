@@ -19,7 +19,7 @@ SED = sed
 RM = rm -f
 WC = wc
 
-INC_FLAG = -I$(TOPDIR) -I$(TOPDIR)/char -I$(TOPDIR)/bios
+INC_FLAG = -I$(TOPDIR) -I$(TOPDIR)/include
 
 CFLAGS = -m32 -fomit-frame-pointer -fno-builtin -nostdinc $(INC_FLAG)
 LFLAGS = -nostdlib -Ttext 0

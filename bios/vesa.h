@@ -107,4 +107,7 @@ int get_svga_mode_info(uint16 mode, struct svga_mode_info* info);
 // 4F02. VESA SuperVGA BIOS - SET SuperVGA VIDEO MODE
 int set_svga_mode(uint16 mode, bool cls /* TODO: struct crtc_info* info*/);
 
+// 4F05. VESA SuperVGA BIOS - CPU VIDEO MEMORY CONTROL
+int set_svga_mem_window(uint8 win_num, uint8 page_addr);
+
 #endif

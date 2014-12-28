@@ -57,3 +57,21 @@ asm(
 );
 	CHECK_AND_RETURN(ret);
 }
+
+// 4F05. VESA SuperVGA BIOS - CPU VIDEO MEMORY CONTROL
+inline int set_svga_mem_window(uint8 win_num, uint8 page_addr)
+{
+	uint16 ret = 0;
+asm(
+	"mov $0x4F05, %%ax\n"
+	"mov $0, %%bh\n"
+	"mov %1, %%bl\n"
+	"mov %2, %%dx\n"
+	"int $0x10\n"
+	"mov %%ax, %0"
+	:"=m"(ret)
+	:"g"(win_num), "g"(page_addr)
+	:"%ax", "%bx", "%dx", "memory"
+);
+	CHECK_AND_RETURN(ret);
+}
