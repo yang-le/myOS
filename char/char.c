@@ -1,11 +1,21 @@
 #include <bios.h>
 
+inline char getc()
+{
+	return get_keystroke();
+}
+
 inline void putc(const char c)
 {
 	tele_char(c, 0, 0);
+	if (c == '\r') tele_char('\n', 0, 0);
+	if (c == '\b') {
+		tele_char('\0', 0, 0);
+		tele_char('\b', 0, 0);
+	}
 }
 
-void htoa(unsigned char hex)
+void htoa(uint8 hex)
 {
 	if (hex > 0xF) return;
 	
