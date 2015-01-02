@@ -1,13 +1,12 @@
-#include <bios.h>
+#include "mouse.h"
 
-typedef void (*mouse_callback)(uint16 status, uint16 x, uint16 y);
-mouse_callback mouse_cb = null;
+static mouse_callback mouse_cb = null;
 
-uint16 status = 0;
-uint16 x = 0, y = 0;
-uint8 count = 0;
+static union mouse_status status = {0};
+static uint16 x = 0, y = 0;
+static uint8 count = 0;
 
-void mouse_process(uint32 reserved, uint32 param)
+static void mouse_process(uint32 reserved, uint32 param)
 {
 asm(
 	"mov %%cs, %%ax\n"	// fix ds
@@ -17,7 +16,7 @@ asm(
 	if (mouse_cb == null) goto out;
 	
 	++count;
-	if (1 == count) status = param >> 16;
+	if (1 == count) status.val = param >> 16;
 	if (2 == count) x = param >> 16;
 	if (3 == count) {
 		y = param >> 16;
