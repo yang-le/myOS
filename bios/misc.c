@@ -14,7 +14,7 @@ asm(
 	:"%ah", "%cx", "%dx"
 );
 }
-
+#if 0
 // C0. SYSTEM - GET CONFIGURATION
 inline int get_sys_config(far_ptr *p)
 {
@@ -33,5 +33,5 @@ asm(
 	*p = (base << 16) | offset;
 	return ret;
 }
-
+#endif
 #include "mouse.c"

@@ -55,7 +55,7 @@ asm(
 	info->row = row;
 	info->col = col;
 }
-
+#if 0
 // 0A. VIDEO - WRITE CHARACTER ONLY AT CURSOR POSITION
 inline void write_char(uint8 c, uint8 page, uint8 color, uint16 rep_count)
 {
@@ -70,7 +70,7 @@ asm(
 	:"%ax", "%bx", "%cx", "memory"
 );
 }
-
+#endif
 // 0C. VIDEO - WRITE GRAPHICS PIXEL
 inline void write_pixel(uint8 p, uint8 page, uint16 col, uint16 row)
 {

@@ -7,7 +7,7 @@
 void delay(uint32 ms);
 
 // C0. SYSTEM - GET CONFIGURATION
-int get_sys_config(far_ptr *p);
+//int get_sys_config(far_ptr *p);
 
 
 #include "mouse.h"
