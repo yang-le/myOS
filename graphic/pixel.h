@@ -9,5 +9,6 @@
 void set_pixel(uint16 x, uint16 y, uint32 color);
 uint32 get_pixel(uint16 x, uint16 y);
 uint32 mix_color(uint32 fcolor, uint32 bcolor);
+void draw_bitmap(uint16 x, uint16 y, uint32 color, uint8 *bitmap, uint16 rows, uint16 cols);
 
 #endif

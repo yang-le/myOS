@@ -1,5 +1,6 @@
 #include <bios.h>
 #include "pixel.h"
+#include "font.c"
 
 extern struct svga_mode_info graphic_info;
 uint8 cur_page = 0;
@@ -165,4 +166,32 @@ uint32 get_pixel(uint16 x, uint16 y)
 	);
 	}
 	return RGB(r, g, b);
+}
+
+inline void draw_bitmap(uint16 x, uint16 y, uint32 color, uint8 *bitmap, uint16 rows, uint16 cols)
+{
+	int i, j;
+	for (i = 0; i < rows; ++i)
+		for (j = 0; j < cols; ++j)
+			set_pixel(x + j, y + i, color & RGBA(255, 255, 255, bitmap[i * cols + j]));
+}
+
+inline void draw_rect(uint16 x, uint16 y, uint32 color, uint16 rows, uint16 cols)
+{
+	int i, j;
+	for (i = 0; i < rows; ++i)
+		for (j = 0; j < cols; ++j)
+			set_pixel(x + j, y + i, color);
+}
+
+void draw_char(uint16 x, uint16 y, uint32 color, unsigned char c)
+{
+	int i, j;
+	unsigned int col, row;
+	col = c % 16;
+	row = c / 16;
+	for (i = 0; i < 8; ++i)
+		for (j = 0; j < 8; ++j)
+			set_pixel(x + j, y + i, color & RGBA(255, 255, 255,
+			ascii_font[row * 1024 + col * 8 + i * 128 + j]));
 }

@@ -52,35 +52,3 @@ void set_mouse_callback(mouse_callback func)
 {
 	mouse_cb = func;
 }
-
-static unsigned char mouse_cursor[16][8] =
-{
-	{'1', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-	{'1', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-	{'1', '1', 'x', 'x', 'x', 'x', 'x', 'x'},
-	{'1', 'o', 'x', 'x', 'x', 'x', 'x', 'x'},
-	{'1', 'o', '1', 'x', 'x', 'x', 'x', 'x'},
-	{'1', 'o', 'o', 'x', 'x', 'x', 'x', 'x'},
-	{'1', 'o', 'o', '1', 'x', 'x', 'x', 'x'},
-	{'1', 'o', 'o', 'o', 'x', 'x', 'x', 'x'},
-	{'1', 'o', 'o', 'o', '1', 'x', 'x', 'x'},
-	{'1', 'o', 'o', 'o', 'o', 'x', 'x', 'x'},
-	{'1', 'o', 'o', 'o', '1', 'x', 'x', 'x'},
-	{'1', 'o', 'o', '1', 'x', 'x', 'x', 'x'},
-	{'1', 'o', '1', 'x', 'x', 'x', 'x', 'x'},
-	{'1', '1', 'x', 'o', 'x', 'x', 'x', 'x'},
-	{'1', 'x', 'x', 'x', 'o', 'x', 'x', 'x'},
-	{'x', 'x', 'x', 'o', 'x', 'x', 'x', 'x'},
-};
-
-void draw_mouse(uint16 x, uint16 y, uint32 color)
-{
-	int i, j;
-	for (i = 0; i < 16; ++i) {
-		for (j = 0; j < 8; ++j) {
-			if (mouse_cursor[i][j] == 'x') set_pixel(x + j, y + i, 0);
-			if (mouse_cursor[i][j] == '1') set_pixel(x + j, y + i, color);
-			if (mouse_cursor[i][j] == 'o') set_pixel(x + j, y + i, color);
-		}
-	}
-}
