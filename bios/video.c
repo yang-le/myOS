@@ -56,6 +56,21 @@ asm(
 	info->col = col;
 }
 
+// 0A. VIDEO - WRITE CHARACTER ONLY AT CURSOR POSITION
+inline void write_char(uint8 c, uint8 page, uint8 color, uint16 rep_count)
+{
+asm(
+	"mov $0x0A, %%ah\n"
+	"mov $0, %%al\n"
+	"mov $1, %%bh\n"
+	"mov $2, %%bl\n"
+	"mov $3, %%cx\n"
+	"int $0x10\n"
+	::"g"(c), "g"(page), "g"(color), "g"(rep_count)
+	:"%ax", "%bx", "%cx", "memory"
+);
+}
+
 // 0C. VIDEO - WRITE GRAPHICS PIXEL
 inline void write_pixel(uint8 p, uint8 page, uint16 col, uint16 row)
 {
@@ -132,3 +147,5 @@ asm(
 	:"%ax", "%bx", "%cx", "%dx", "%bp", "memory", "cc"
 );
 }
+
+#include "vesa.c"

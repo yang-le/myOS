@@ -47,6 +47,9 @@ struct cursor_info {
 
 void get_cursor_info(uint8 page, struct cursor_info* info);
 
+// 0A. VIDEO - WRITE CHARACTER ONLY AT CURSOR POSITION
+inline void write_char(uint8 c, uint8 page, uint8 color, uint16 rep_count);
+
 // 0C. VIDEO - WRITE GRAPHICS PIXEL
 void write_pixel(uint8 p, uint8 page, uint16 col, uint16 row);
 
@@ -87,5 +90,7 @@ union disp_attrib {
 };
 
 void tele_string(char* s, uint16 size, uint8 row, uint8 col, uint8 page, uint8 mode, union disp_attrib attrib);
+
+#include "vesa.h"
 
 #endif
