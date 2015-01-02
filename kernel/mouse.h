@@ -4,7 +4,8 @@ union mouse_status {
 	struct {
 		uint16 left_button : 1;
 		uint16 right_button : 1;
-		uint16 _reserved : 2;
+		uint16 middle_button : 1;
+		uint16 _reserved : 1;
 		uint16 x_negative : 1;
 		uint16 y_negative : 1;
 		uint16 x_overflow : 1;
