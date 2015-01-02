@@ -20,7 +20,8 @@ void my_mouse_callback(union mouse_status status, uint16 _x, uint16 _y)
 	if (status.left_button) color |= RGB(255, 0, 0);
 	if (status.middle_button) color |= RGB(0, 255, 0);	
 	if (status.right_button) color |= RGB(0, 0, 255);
-	if (color == 0) color = RGB(255, 255, 255);
+	color &= RGBA(255, 255, 255, 100);	
+	if ((color & 0x00FFFFFF) == 0) color = RGB(255, 255, 255);
 	draw_mouse(cur_x, cur_y, color);
 }
 
