@@ -6,8 +6,11 @@ typedef unsigned short uint16;
 typedef unsigned int uint32;
 
 typedef uint8 bool;
+typedef uint32 far_ptr;
+
 #define true 1
 #define false 0
+#define null (void*)0
 
 #define __PACKED__ __attribute__ ((gcc_struct, packed))
 
