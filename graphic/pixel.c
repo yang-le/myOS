@@ -3,7 +3,7 @@
 #include "font.c"
 
 extern struct svga_mode_info graphic_info;
-uint8 cur_page = 0;
+static uint8 cur_page = 0;
 
 #define WIN_START_SEG (graphic_info.win_A_start_seg)
 #define ROW_STEP (graphic_info.bytes_per_scanline)
@@ -24,6 +24,7 @@ void set_pixel(uint16 x, uint16 y, uint32 color)
 {
 	uint8 bytes_per_pixel = COLOR_DEPTH >> 3;
 	uint32 pos = y * ROW_STEP + x * bytes_per_pixel;
+	uint16 fs = WIN_START_SEG;
 
 	// correct cur_page first!!!
 	if (pos / PAGE_GRAN != cur_page) {
@@ -44,7 +45,7 @@ void set_pixel(uint16 x, uint16 y, uint32 color)
 		"mov %1, %%bx\n"
 		"mov %2, %%al\n"
 		"mov %%al, %%fs:(%%bx)\n"
-		::"g"(WIN_START_SEG), "g"(pos), "g"(b)
+		::"g"(fs), "g"(pos), "g"(b)
 		:"%ax", "%bx"
 	);
 		if (++pos >= PAGE_SIZE) {
@@ -57,7 +58,7 @@ void set_pixel(uint16 x, uint16 y, uint32 color)
 		"mov %1, %%bx\n"
 		"mov %2, %%al\n"
 		"mov %%al, %%fs:(%%bx)\n"
-		::"g"(WIN_START_SEG), "g"(pos), "g"(g)
+		::"g"(fs), "g"(pos), "g"(g)
 		:"%ax", "%bx"
 	);
 		if (++pos >= PAGE_SIZE) {
@@ -70,7 +71,7 @@ void set_pixel(uint16 x, uint16 y, uint32 color)
 		"mov %1, %%bx\n"
 		"mov %2, %%al\n"
 		"mov %%al, %%fs:(%%bx)\n"
-		::"g"(WIN_START_SEG), "g"(pos), "g"(r)
+		::"g"(fs), "g"(pos), "g"(r)
 		:"%ax", "%bx"
 	);		
 	} else {
@@ -86,7 +87,7 @@ void set_pixel(uint16 x, uint16 y, uint32 color)
 		"inc %%bx\n"
 		"mov %4, %%al\n"
 		"mov %%al, %%fs:(%%bx)\n"
-		::"g"(WIN_START_SEG), "g"(pos), "g"(b), "g"(g), "g"(r)
+		::"g"(fs), "g"(pos), "g"(b), "g"(g), "g"(r)
 		:"%ax", "%bx"
 	);
 	}
@@ -96,6 +97,7 @@ uint32 get_pixel(uint16 x, uint16 y)
 {
 	uint8 bytes_per_pixel = COLOR_DEPTH >> 3;
 	uint32 pos = y * ROW_STEP + x * bytes_per_pixel;
+	uint16 fs = WIN_START_SEG;	
 
 	// correct cur_page first!!!
 	if (pos / PAGE_GRAN != cur_page) {
@@ -116,11 +118,11 @@ uint32 get_pixel(uint16 x, uint16 y)
 		"mov %%fs:(%%bx), %%al\n"
 		"mov %%al, %0\n"		
 		:"=m"(b)
-		:"g"(WIN_START_SEG), "g"(pos)
+		:"g"(fs), "g"(pos)
 		:"%ax", "%bx", "memory"
 	);
 		if (++pos >= PAGE_SIZE) {
-			set_svga_mem_window(0, ++cur_page);	// change page in pixel
+			set_svga_mem_window(0, ++cur_page);	// change page in pixel	
 			pos = 0;
 		}
 	asm(
@@ -130,11 +132,11 @@ uint32 get_pixel(uint16 x, uint16 y)
 		"mov %%fs:(%%bx), %%al\n"
 		"mov %%al, %0\n"		
 		:"=m"(g)
-		:"g"(WIN_START_SEG), "g"(pos)
+		:"g"(fs), "g"(pos)
 		:"%ax", "%bx", "memory"
 	);
 		if (++pos >= PAGE_SIZE) {
-			set_svga_mem_window(0, ++cur_page);	// change page in pixel
+			set_svga_mem_window(0, ++cur_page);	// change page in pixel	
 			pos = 0;
 		}
 	asm(
@@ -144,7 +146,7 @@ uint32 get_pixel(uint16 x, uint16 y)
 		"mov %%fs:(%%bx), %%al\n"
 		"mov %%al, %0\n"		
 		:"=m"(r)
-		:"g"(WIN_START_SEG), "g"(pos)
+		:"g"(fs), "g"(pos)
 		:"%ax", "%bx", "memory"
 	);		
 	} else {
@@ -161,7 +163,7 @@ uint32 get_pixel(uint16 x, uint16 y)
 		"mov %%fs:(%%bx), %%al\n"
 		"mov %%al, %2\n"
 		:"=m"(b), "=m"(g), "=m"(r)
-		:"g"(WIN_START_SEG), "g"(pos)
+		:"g"(fs), "g"(pos)
 		:"%ax", "%bx", "memory"
 	);
 	}
@@ -186,12 +188,12 @@ inline void draw_rect(uint16 x, uint16 y, uint32 color, uint16 rows, uint16 cols
 
 void draw_char(uint16 x, uint16 y, uint32 color, unsigned char c)
 {
-	int i, j;
+	unsigned int i, j;
 	unsigned int col, row;
 	col = c % 16;
 	row = c / 16;
-	for (i = 0; i < 8; ++i)
-		for (j = 0; j < 8; ++j)
+	for (i = 0; i < 16; ++i)
+		for (j = 0; j < 16; ++j)
 			set_pixel(x + j, y + i, color & RGBA(255, 255, 255,
-			ascii_font[row * 1024 + col * 8 + i * 128 + j]));
+			ascii_font[row * 4096 + col * 16 + i * 256 + j]));
 }

@@ -51,3 +51,4 @@ clean:
 	$(Q)$(RM) $(TARGET)
 	$(Q)$(RM) $(TARGET).bin
 	$(Q)$(RM) $(TARGET).img
+	$(Q)$(RM) system.map

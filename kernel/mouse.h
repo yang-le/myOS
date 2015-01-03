@@ -19,3 +19,4 @@ typedef void (*mouse_callback)(union mouse_status status, uint16 x, uint16 y);
 
 void mouse_init();
 void set_mouse_callback(mouse_callback func);
+void default_mouse_callback(union mouse_status status, uint16 _x, uint16 _y);
