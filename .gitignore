@@ -1,5 +1,7 @@
 *.o
 *.a
+*.exe
+bochs*
 
 # Windows image file caches
 Thumbs.db
