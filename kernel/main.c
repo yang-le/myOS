@@ -9,8 +9,13 @@
 void my_os(void)
 {
 	graphic_init();
-	puts("hello mouse!\r\n\r\n");
-	mouse_init();
-	set_mouse_callback(default_mouse_callback);
-	//show_svga_info();
+	puts("hello new font!\r\n\r\n");
+	//mouse_init();
+	//set_mouse_callback(default_mouse_callback);
+	int i = 0, j = 0;
+	for (i = 0; i < 6; ++i) {
+		for (j = 0; j < 16; ++j)
+			putc(' ' + i * 16 + j);
+		puts("\r\n");
+	}
 }
