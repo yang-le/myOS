@@ -8,13 +8,9 @@
 
 void my_os(void)
 {
-	puts("hello mouse!\r\n\r\n");
 	graphic_init();
+	puts("hello mouse!\r\n\r\n");
 	mouse_init();
 	set_mouse_callback(default_mouse_callback);
-	
-	int i = 0,j = 0;
-	for (j = 0; j < 6; ++j)
-		for (i = 0; i < 16; ++i)
-			draw_char(i * 16, 100 + 16 * j, RGB(255, 255, 255), i + 16 * j);
+	//show_svga_info();
 }
