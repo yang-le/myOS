@@ -5,6 +5,7 @@
 #include "bios/video.h"
 #include "bios/vesa.h"
 #include "bios/misc.h"
+#include "bios/disk.h"
 
 enum bios_calls {
 	bc_video_service = 0x10,

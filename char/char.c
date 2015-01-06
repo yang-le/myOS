@@ -5,7 +5,7 @@ extern struct svga_mode_info graphic_info;
 static uint16 cur_x = 0, cur_y = 0;
 
 #define next_line(pix) \
-	{cur_x = 0; if ((cur_y += (pix)) > graphic_info.height) cur_y = 0;}
+	{cur_x = 0; if ((cur_y += (pix)) >= graphic_info.height) cur_y = 0;}
 
 inline char getc()
 {
@@ -31,7 +31,7 @@ void putc(char c)
 		}
 		if (c < ' ' || c > '~') c = '~' + 1;		
 		draw_char(cur_x, cur_y, RGB(255, 255, 255), c - ' ');
-		if ((cur_x += 16) > graphic_info.width) next_line(16);
+		if ((cur_x += 16) >= graphic_info.width) next_line(16);
 	} else {
 		tele_char(c, 0, 0);
 		if (c == '\r') tele_char('\n', 0, 0);
