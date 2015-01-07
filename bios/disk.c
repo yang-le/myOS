@@ -1,7 +1,7 @@
 #include "disk.h"
 
 // 02. DISK - READ SECTOR(S) INTO MEMORY
-uint8 _read_sector(uint8 driver, uint8 head, uint8 track, uint8 sector, uint8 num, far_ptr buff)
+uint8 _read_sector(uint8 driver, uint8 cylinder, uint8 head, uint8 sector, uint8 num, far_ptr buff)
 {
 	uint8 ret = 0;
 	uint16 es = buff >> 16;
@@ -23,14 +23,14 @@ asm(
 	"int $0x13\n"
 	"mov %%ah, %0\n"
 	:"=m"(ret)
-	:"g"(es), "g"(driver), "g"(head), "g"(track), "g"(sector), "g"(num), "g"(buff)
+	:"g"(es), "g"(driver), "g"(head), "g"(cylinder), "g"(sector), "g"(num), "g"(buff)
 	:"%ax", "%bx", "%cx", "%dx", "memory", "cc"
 );
 	return ret;
 }
 
 // 03. DISK - WRITE DISK SECTOR(S)
-uint8 _write_sector(uint8 driver, uint8 head, uint8 track, uint8 sector, uint8 num, far_ptr buff)
+uint8 _write_sector(uint8 driver, uint8 cylinder, uint8 head, uint8 sector, uint8 num, far_ptr buff)
 {
 	uint8 ret = 0;
 	uint16 es = buff >> 16;
@@ -52,7 +52,7 @@ asm(
 	"int $0x13\n"
 	"mov %%ah, %0\n"
 	:"=m"(ret)
-	:"g"(es), "g"(driver), "g"(head), "g"(track), "g"(sector), "g"(num), "g"(buff)
+	:"g"(es), "g"(driver), "g"(head), "g"(cylinder), "g"(sector), "g"(num), "g"(buff)
 	:"%ax", "%bx", "%cx", "%dx", "memory", "cc"
 );
 	return ret;	
