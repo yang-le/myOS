@@ -58,25 +58,25 @@ void set_mouse_callback(mouse_callback func)
  */
 
 static int16 cur_x = 0, cur_y = 0;
-/* static unsigned char mouse_cursor[] =
+static unsigned char mouse_cursor[] =
 {	// size = 16 x 8
-	'1', 0, 0, 0, 0, 0, 0, 0,
-	'1', 0, 0, 0, 0, 0, 0, 0,
-	'1', '1', 0, 0, 0, 0, 0, 0,
-	'1', 'o', 0, 0, 0, 0, 0, 0,
-	'1', 'o', '1', 0, 0, 0, 0, 0,
-	'1', 'o', 'o', 0, 0, 0, 0, 0,
-	'1', 'o', 'o', '1', 0, 0, 0, 0,
-	'1', 'o', 'o', 'o', 0, 0, 0, 0,
-	'1', 'o', 'o', 'o', '1', 0, 0, 0,
-	'1', 'o', 'o', 'o', 'o', 0, 0, 0,
-	'1', 'o', 'o', 'o', '1', 0, 0, 0,
-	'1', 'o', 'o', '1', 0, 0, 0, 0,
-	'1', 'o', '1', 0, 0, 0, 0, 0,
-	'1', '1', 0, 'o', 0, 0, 0, 0,
-	'1', 0, 0, 0, 'o', 0, 0, 0,
-	0, 0, 0, 'o', 0, 0, 0, 0
-}; */
+	69, 0, 0, 0, 0, 0, 0, 0,
+	69, 0, 0, 0, 0, 0, 0, 0,
+	69, 69, 0, 0, 0, 0, 0, 0,
+	69, 255, 0, 0, 0, 0, 0, 0,
+	69, 255, 69, 0, 0, 0, 0, 0,
+	69, 255, 255, 0, 0, 0, 0, 0,
+	69, 255, 255, 69, 0, 0, 0, 0,
+	69, 255, 255, 255, 0, 0, 0, 0,
+	69, 255, 255, 255, 69, 0, 0, 0,
+	69, 255, 255, 255, 255, 0, 0, 0,
+	69, 255, 255, 255, 69, 0, 0, 0,
+	69, 255, 255, 69, 0, 0, 0, 0,
+	69, 255, 69, 0, 0, 0, 0, 0,
+	69, 69, 0, 255, 0, 0, 0, 0,
+	69, 0, 0, 0, 255, 0, 0, 0,
+	0, 0, 0, 255, 0, 0, 0, 0
+};
 
 void default_mouse_callback(union mouse_status status, uint16 _x, uint16 _y)
 {
@@ -92,5 +92,5 @@ void default_mouse_callback(union mouse_status status, uint16 _x, uint16 _y)
 	if (status.middle_button) color |= RGB(0, 255, 0);	
 	if (status.right_button) color |= RGB(0, 0, 255);
 	if ((color & 0x00FFFFFF) == 0) color = RGB(255, 255, 255);
-	//draw_bitmap(cur_x, cur_y, color, mouse_cursor, 16, 8);
+	draw_bitmap(cur_x, cur_y, color, mouse_cursor, 16, 8);
 }
