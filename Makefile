@@ -32,7 +32,7 @@ $(TARGET) : FORCE
 	$(Q)$(MAKE) link
 
 link : FORCE
-	$(Q)$(LD) -o $(TARGET) $(LFLAGS) boot/boot \
+	$(Q)$(LD) -o $(TARGET) $(LFLAGS) boot/boot boot/loader \
 		-L./kernel -lkernel \
 		-L./demo -ldemo \
 		-L./char -lchar \

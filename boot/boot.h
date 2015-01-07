@@ -1,0 +1,9 @@
+#ifndef __BOOT_H__
+#define __BOOT_H__
+
+#define BOOTSEG 0x07C0
+#define BOOT_SIZE_IN_SECTOR 1
+#define LOADER_SIZE_IN_SECTOR 2
+#define ADDR_OF_NEW_WORLD ((BOOTSEG << 16) + (BOOT_SIZE_IN_SECTOR + LOADER_SIZE_IN_SECTOR) * 512)
+
+#endif
