@@ -19,6 +19,9 @@ SED = sed
 RM = rm -f
 WC = wc
 
+QEMU = qemu-system-i386
+CTAGS = ctags -R
+
 INC_FLAG = -I$(TOPDIR) -I$(TOPDIR)/include
 
 CFLAGS = -m32 -fno-stack-protector -fomit-frame-pointer -fno-builtin -nostdinc $(INC_FLAG)

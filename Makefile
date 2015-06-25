@@ -52,3 +52,10 @@ clean:
 	$(Q)$(RM) $(TARGET).bin
 	$(Q)$(RM) $(TARGET).img
 	$(Q)$(RM) system.map
+	$(Q)$(RM) tags
+
+ctags:
+	$(CTAGS) $(TOPDIR)
+
+qemu : img
+	$(QEMU) -vga std -fda $(TARGET).img -boot a
