@@ -3,9 +3,9 @@ include $(TOPDIR)/mk/common.mk
 
 all : boot loader
 
-boot : boot.s
+boot : boot.S
 	$(Q)$(ECHO) "[BOOT] create bootsector $@"
-	$(Q)./fixboot.sh boot.s | $(CC) -o $@ -x assembler-with-cpp -c -
+	$(Q)./fixboot.sh boot.S | $(CC) -o $@ $(CFLAGS) $(CODE16GCC) -x assembler-with-cpp -c -
 
 loader : loader.c FORCE
 	$(Q)$(ECHO) "[LOADER] create loader $@"

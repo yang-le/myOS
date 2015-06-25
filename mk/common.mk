@@ -21,8 +21,8 @@ WC = wc
 
 INC_FLAG = -I$(TOPDIR) -I$(TOPDIR)/include
 
-CFLAGS = -m32 -fomit-frame-pointer -fno-builtin -nostdinc $(INC_FLAG)
-LFLAGS = -nostdlib -Ttext 0 -static -Map system.map
+CFLAGS = -m32 -fno-stack-protector -fomit-frame-pointer -fno-builtin -nostdinc $(INC_FLAG)
+LFLAGS = -melf_i386 -nostdlib -Ttext 0 -static -Map system.map
 OFLAGS = -O binary -R .eh_frame -R .eh_fram -R .comment -R .edata -R .idata -S
 
 CODE16GCC = -Wa,$(TOPDIR)/mk/code16gcc.s
