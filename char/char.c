@@ -1,5 +1,6 @@
 #include <bios.h>
 #include <graphic.h>
+#include <stdio.h>
 
 extern struct svga_mode_info graphic_info;
 static uint16 cur_x = 0, cur_y = 0;
@@ -12,7 +13,7 @@ inline char getc()
 	return get_keystroke();
 }
 
-void putc(char c)
+int putchar(int c)
 {
 	if (graphic_info.mode_attrib.graphics) {
 		if (c == '\r') {
@@ -40,6 +41,8 @@ void putc(char c)
 			tele_char('\b', 0, 0);
 		}
 	}
+
+	return c;
 }
 
 void htoa(uint8 hex)
@@ -51,7 +54,7 @@ void htoa(uint8 hex)
 	else
 		hex += 'A' - 0xA;
 
-	putc(hex);
+	putchar(hex);
 }
 
 void dumpbyte(uint8 b)
@@ -116,7 +119,7 @@ void puts(char* s)
 {
 	if (graphic_info.mode_attrib.graphics) {
 		const char* p = s;
-		while(p && *p) putc(*p++);
+		while(p && *p) putchar(*p++);
 	} else {
 		union disp_attrib attrib = {0};
 		attrib.fcolor = COLOR_WHITE;
@@ -127,3 +130,17 @@ void puts(char* s)
 		tele_string(s, strlen(s), info.row, info.col, 0, MODE_UPDATE_CURSOR, attrib);
 	}
 }
+
+int printf(const char * fmt, ...)
+{
+	int ret;
+	va_list va;
+	va_start(va, fmt);
+	char buffer[1024] = {0};
+	ret = mini_vsnprintf(buffer, 1024, fmt, va);
+	va_end(va);
+	
+	puts(buffer);
+	return ret;
+}
+

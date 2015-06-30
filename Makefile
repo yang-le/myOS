@@ -28,6 +28,7 @@ $(TARGET) : FORCE
 	$(Q)$(MAKE) -C char
 	$(Q)$(MAKE) -C graphic
 	$(Q)$(MAKE) -C bios
+	$(Q)$(MAKE) -C 3rd_party/mini-printf
 	$(Q)$(ECHO) "[LINK] 1st stage link..."
 	$(Q)$(MAKE) link
 
@@ -37,7 +38,8 @@ link : FORCE
 		-L./demo -ldemo \
 		-L./char -lchar \
 		-L./graphic -lgraphic \
-		-L./bios -lbios
+		-L./bios -lbios \
+		-L./3rd_party/mini-printf -lmini-printf
 
 FORCE:
 
@@ -48,6 +50,7 @@ clean:
 	$(Q)$(MAKE) -C char clean
 	$(Q)$(MAKE) -C graphic clean
 	$(Q)$(MAKE) -C bios clean
+	$(Q)$(MAKE) -C 3rd_party/mini-printf clean
 	$(Q)$(RM) $(TARGET)
 	$(Q)$(RM) $(TARGET).bin
 	$(Q)$(RM) $(TARGET).img
