@@ -1,7 +1,7 @@
 myOS
 ====
 
-[![Build Status](https://travis-ci.org/yang-le/myOS.svg)](https://travis-ci.org/yang-le/myOS)
+[![Build Status](https://circleci.com/gh/yang-le/myOS.svg?style=shield)](https://circleci.com/gh/yang-le/myOS)
 
 myOS is __your__ OS, fork it and play with it.
 
